@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LearnRetrofit</string>
+    <string name="cityEditText">Введите название города</string>
+    <string name="showWeather">Посмотреть</string>
+    <string name="city">Город: %s</string>
+    <string name="temp">Температура: %d&#xb0;</string>
+    <string name="lastUpdate">Последнее обновление: %s</string>
+    <string name="weather">Погода</string>
+</resources>
