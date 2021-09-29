@@ -1,12 +1,14 @@
 package com.learn.learnretrofit
 
-import android.animation.ValueAnimator
+import android.animation.FloatEvaluator
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import java.net.URL
 import android.graphics.drawable.Drawable
+import android.view.animation.AnticipateOvershootInterpolator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +30,13 @@ class WeatherActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 val url : InputStream = URL("https:${result.current?.condition?.icon}").content as InputStream
                 image = Drawable.createFromStream(url, "src")
+            }
+            //вращение изображения с использованием нелинейной интерполяции
+            ObjectAnimator.ofFloat(icon, "rotation", 360f).apply {
+                duration = 1500
+                setEvaluator(FloatEvaluator())
+                interpolator = AnticipateOvershootInterpolator()
+                start()
             }
             icon.setImageDrawable(image)
         }
