@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import java.net.URL
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
@@ -30,7 +31,7 @@ class WeatherActivity : AppCompatActivity() {
                 val url : InputStream = URL("https:${result.current?.condition?.icon}").content as InputStream
                 image = Drawable.createFromStream(url, "src")
             }
-            findViewById<ProgressBar>(R.id.progress).isVisible = false
+            findViewById<ProgressBar>(R.id.progress).visibility = View.GONE
             icon.setImageDrawable(image)
             //вращение изображения с использованием нелинейной интерполяции
             ObjectAnimator.ofFloat(icon, "rotation", 360f).apply {
