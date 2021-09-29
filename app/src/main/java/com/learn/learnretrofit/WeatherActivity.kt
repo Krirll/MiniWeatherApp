@@ -9,10 +9,9 @@ import android.widget.TextView
 import java.net.URL
 import android.graphics.drawable.Drawable
 import android.view.animation.AnticipateOvershootInterpolator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
+import kotlinx.coroutines.*
 import java.io.InputStream
 
 
@@ -31,6 +30,8 @@ class WeatherActivity : AppCompatActivity() {
                 val url : InputStream = URL("https:${result.current?.condition?.icon}").content as InputStream
                 image = Drawable.createFromStream(url, "src")
             }
+            findViewById<ProgressBar>(R.id.progress).isVisible = false
+            icon.setImageDrawable(image)
             //вращение изображения с использованием нелинейной интерполяции
             ObjectAnimator.ofFloat(icon, "rotation", 360f).apply {
                 duration = 1500
@@ -38,12 +39,10 @@ class WeatherActivity : AppCompatActivity() {
                 interpolator = AnticipateOvershootInterpolator()
                 start()
             }
-            icon.setImageDrawable(image)
         }
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         finish()
     }
 

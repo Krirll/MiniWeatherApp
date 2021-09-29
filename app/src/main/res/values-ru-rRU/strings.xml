@@ -7,4 +7,7 @@
     <string name="temp">Температура: %d&#xb0;</string>
     <string name="lastUpdate">Последнее обновление: %s</string>
     <string name="weather">Погода</string>
+    <string name="emptyError">Поле не должно быть пустым</string>
+    <string name="incorrectCityName">Неправильное название города</string>
+    <string name="loadError">Ошибка загрузки: проверьте ваше интернет соединение</string>
 </resources>

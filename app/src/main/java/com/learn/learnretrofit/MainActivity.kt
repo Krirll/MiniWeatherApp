@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.show)
         button.setOnClickListener {
             val text = findViewById<TextView>(R.id.city)
-            if (text.text.isNotEmpty() && text.text.toString().matches("[А-Яа-яёЁA-Za-z\\s]+".toRegex())) {
+            if (text.text.isNotEmpty()) {
                 button.isClickable = false
                 val retrofit = Retrofit.Builder()
                     .baseUrl("https://api.weatherapi.com")
@@ -39,33 +39,24 @@ class MainActivity : AppCompatActivity() {
                             )
                             button.isClickable = true
                         }
-                        else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Неправильное название страны/города",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            button.isClickable = true
-                        }
+                        else
+                            makeToast(getString(R.string.incorrectCityName), button)
                     }
                     override fun onFailure(call: Call<Weather>, t: Throwable) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "${t.localizedMessage} Ошибка загрузки",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        button.isClickable = true
+                        makeToast(getString(R.string.loadError), button)
                     }
                 })
             }
-            else {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Неправильное название страны/города",
-                    Toast.LENGTH_LONG
-                ).show()
-                button.isClickable = true
-            }
+            else
+                makeToast(getString(R.string.emptyError), button)
         }
+    }
+    private fun makeToast(message : String, button: Button) {
+        Toast.makeText(
+            this@MainActivity,
+            message,
+            Toast.LENGTH_LONG
+        ).show()
+        button.isClickable = true
     }
 }
