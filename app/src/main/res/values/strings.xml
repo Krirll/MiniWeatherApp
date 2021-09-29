@@ -9,4 +9,5 @@
     <string name="emptyError">Should not be empty</string>
     <string name="incorrectCityName">Incorrect name of city</string>
     <string name="loadError">Loading error: check your internet connection</string>
+    <string name="transition">transition</string>
 </resources>

@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import kotlinx.coroutines.*
 import java.io.InputStream
 

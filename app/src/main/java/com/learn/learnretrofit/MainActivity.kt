@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import retrofit2.Call
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
                     .build()
                 Log.d("RETROFIT", "build")
                 val service = retrofit.create(WeatherQueries::class.java)
+                val progress = findViewById<ProgressBar>(R.id.progressBar)
+                progress.visibility = View.VISIBLE
                 val call = service.getWeatherByCity(text.text.toString())
                 call.enqueue(object : Callback<Weather> {
                     override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
@@ -37,13 +41,14 @@ class MainActivity : AppCompatActivity() {
                                     putExtra(WeatherActivity.RESULT, response.body() as Weather)
                                 }
                             )
+                            progress.visibility = View.GONE
                             button.isClickable = true
                         }
                         else
-                            makeToast(getString(R.string.incorrectCityName), button)
+                            makeToast(getString(R.string.incorrectCityName), button, progress)
                     }
                     override fun onFailure(call: Call<Weather>, t: Throwable) {
-                        makeToast(getString(R.string.loadError), button)
+                        makeToast(getString(R.string.loadError), button, progress)
                     }
                 })
             }
@@ -51,12 +56,13 @@ class MainActivity : AppCompatActivity() {
                 makeToast(getString(R.string.emptyError), button)
         }
     }
-    private fun makeToast(message : String, button: Button) {
+    private fun makeToast(message : String, button: Button, progress : ProgressBar? = null) {
         Toast.makeText(
             this@MainActivity,
             message,
             Toast.LENGTH_LONG
         ).show()
         button.isClickable = true
+        progress?.visibility = View.GONE
     }
 }

@@ -7,7 +7,12 @@
     android:gravity="center"
     android:layout_margin="10dp"
     android:orientation="vertical">
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:indeterminate="true"
+        android:visibility="gone"/>
     <EditText
         android:id="@+id/city"
         android:layout_width="match_parent"
