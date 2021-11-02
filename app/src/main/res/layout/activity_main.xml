@@ -31,5 +31,4 @@
         android:text="@string/showWeather"
         android:layout_marginTop="10dp"/>
 
-
 </LinearLayout>

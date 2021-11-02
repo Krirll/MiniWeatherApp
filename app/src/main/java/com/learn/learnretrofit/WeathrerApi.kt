@@ -1,15 +1,13 @@
 package com.learn.learnretrofit
 
-import android.graphics.Bitmap
-import android.media.Image
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 import java.io.Serializable
-import java.util.Date
 
 class Location : Serializable {
     @SerializedName ("name")
@@ -50,5 +48,14 @@ class Weather : Serializable {
 
 interface WeatherQueries {
     @GET("/v1/current.json?key=cdb4b6587cca4fb5b5c54908212709&aqi=no")
-    fun getWeatherByCity(@Query("q") city : String) : Call<Weather>
+    fun getWeatherByCityJSON(@Query("q") city : String) : Call<Weather>
+    companion object {
+        fun create() : WeatherQueries {
+            return Retrofit.Builder()
+                            .baseUrl("https://api.weatherapi.com")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
+                            .create(WeatherQueries::class.java)
+        }
+    }
 }
